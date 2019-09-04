@@ -1,0 +1,1 @@
+deno --allow-all ../src/Server.ts
