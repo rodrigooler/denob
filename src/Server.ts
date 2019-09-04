@@ -1,10 +1,22 @@
-import { serve } from "https://deno.land/std@v0.12/http/server.ts";
+import { abc } from "https://deno.sh/abc/mod.ts";
+import { config } from "https://deno.land/x/dotenv/dotenv.ts";
 
-import Router from "./Router.ts";
+const { PORT, DENO_ENV } = config();
 
-window.onload = async () => {
-  console.log("http://localhost:8000/");
-  for await (const req of serve(":8000")) {
-    Router(req);
-  }
-};
+// import { Client } from "https://deno.land/x/mysql/mod.ts";
+
+// const client = await new Client().connect({
+//   hostname: "127.0.0.1",
+//   username: "root",
+//   db: "dbname",
+//   pool: 3, // pool size
+//   password: "password"
+// });
+
+const app = abc();
+
+app
+  .get("/", function() {
+    return "Hello, Abc";
+  })
+  .start(`0.0.0.0:${PORT}`);
